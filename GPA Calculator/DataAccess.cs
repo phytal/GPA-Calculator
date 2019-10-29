@@ -12,7 +12,7 @@ namespace GPA_Calculator
         {
             using (IDbConnection connection = new SqlConnection(Helper.CnnVal("GPA Calculator")))
             {
-                var output = connection.Query<User>($"select * from Users where name = '{name}'").ToList();
+                var output = connection.Query<User>("dbo.GPACalculator_UserByName @Name", new { Name = name }).ToList();
                 return output;
             }
         }
