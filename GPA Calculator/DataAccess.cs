@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -14,6 +15,16 @@ namespace GPA_Calculator
             {
                 var output = connection.Query<User>("dbo.GPACalculator_UserByName @Name", new { Name = name }).ToList();
                 return output;
+            }
+        }
+
+        public void InsertUser(string username, string password, string name)
+        {
+            using (IDbConnection connection = new SqlConnection(Helper.CnnVal("GPA Calculator")))
+            {
+                List<User> users = new List<User>();
+                users.Add(new User { Username= username, Password = password, Name = name });
+                connection.Execute("dbo.GPACalculator_InsertUser @Username, @Password, @Name", users);
             }
         }
     }

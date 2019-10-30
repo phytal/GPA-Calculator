@@ -28,5 +28,17 @@ namespace GPA_Calculator
 
             UpdateBinding();
         }
+
+        private void addNewUserButton_Click(object sender, EventArgs e)
+        {
+            Hide();
+            AddNewUser addNewUser = new AddNewUser();
+            addNewUser.ShowDialog();
+        }
+
+        private void peopleFoundListbox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
