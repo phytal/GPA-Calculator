@@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.28307.852
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPA Calculator", "GPA Calculator\GPA Calculator.csproj", "{3CEAB70D-A9BF-46EF-8627-AFF2F7384CA5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FISD-HAC-Access", "RRISD-HAC-Access\FISD-HAC-Access.csproj", "{0102A5E8-47BE-4E48-A907-32B7C0528342}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{3CEAB70D-A9BF-46EF-8627-AFF2F7384CA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3CEAB70D-A9BF-46EF-8627-AFF2F7384CA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3CEAB70D-A9BF-46EF-8627-AFF2F7384CA5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0102A5E8-47BE-4E48-A907-32B7C0528342}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0102A5E8-47BE-4E48-A907-32B7C0528342}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0102A5E8-47BE-4E48-A907-32B7C0528342}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0102A5E8-47BE-4E48-A907-32B7C0528342}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

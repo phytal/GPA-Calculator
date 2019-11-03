@@ -12,7 +12,7 @@ namespace GPA_Calculator
             get
             {
                 //Zhang.W password1234 (William Zhang)
-                return $"{ Username } { Password } ({ Name })";
+                return $"{ Username } -- { Password } -- { Name }";
             }
         }
     }

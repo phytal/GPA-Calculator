@@ -40,5 +40,35 @@ namespace GPA_Calculator
         {
 
         }
+
+        private void deleteUserButton_Click(object sender, EventArgs e)
+        {
+            DataAccess db = new DataAccess();
+            string text = peopleFoundListbox.GetItemText(peopleFoundListbox.SelectedItem);
+
+            string pattern = @"\s--\s";
+            string[] elements = System.Text.RegularExpressions.Regex.Split(text, pattern);
+            db.DeleteUser(elements[0], elements[1], elements[2]);
+
+            UpdateBinding();
+        }
+
+        private void loginButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void editUserButton_Click(object sender, EventArgs e)
+        {
+            DataAccess db = new DataAccess();
+            string text = peopleFoundListbox.GetItemText(peopleFoundListbox.SelectedItem);
+            //TODO: get values from the string
+
+            string pattern = @"\s--\s";
+            string[] elements = System.Text.RegularExpressions.Regex.Split(text, pattern);
+            db.DeleteUser(elements[0], elements[1], elements[2]);
+
+            UpdateBinding();
+        }
     }
 }

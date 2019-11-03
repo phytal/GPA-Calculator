@@ -27,5 +27,25 @@ namespace GPA_Calculator
                 connection.Execute("dbo.GPACalculator_InsertUser @Username, @Password, @Name", users);
             }
         }
+
+        public void DeleteUser(string username, string password, string name)
+        {
+            using (IDbConnection connection = new SqlConnection(Helper.CnnVal("GPA Calculator")))
+            {
+                List<User> users = new List<User>();
+                users.Add(new User { Username = username, Password = password, Name = name });
+                connection.Execute("dbo.GPACalculator_DeleteUser @Username, @Password, @Name", users);
+            }
+        }
+
+        public void EditUser(string username, string password, string name)
+        {
+            using (IDbConnection connection = new SqlConnection(Helper.CnnVal("GPA Calculator")))
+            {
+                List<User> users = new List<User>();
+                users.Add(new User { Username = username, Password = password, Name = name });
+                connection.Execute("dbo.GPACalculator_EditUser @Username, @Password, @Name", users);
+            }
+        }
     }
 }

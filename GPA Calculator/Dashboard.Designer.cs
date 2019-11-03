@@ -35,6 +35,7 @@ namespace GPA_Calculator
             this.addNewUserButton = new System.Windows.Forms.Button();
             this.loginButton = new System.Windows.Forms.Button();
             this.deleteUserButton = new System.Windows.Forms.Button();
+            this.editUserButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // nameLabel
@@ -74,9 +75,9 @@ namespace GPA_Calculator
             // 
             // addNewUserButton
             // 
-            this.addNewUserButton.Location = new System.Drawing.Point(108, 265);
+            this.addNewUserButton.Location = new System.Drawing.Point(27, 294);
             this.addNewUserButton.Name = "addNewUserButton";
-            this.addNewUserButton.Size = new System.Drawing.Size(147, 23);
+            this.addNewUserButton.Size = new System.Drawing.Size(156, 23);
             this.addNewUserButton.TabIndex = 4;
             this.addNewUserButton.Text = "Add New User/Direct Login";
             this.addNewUserButton.UseVisualStyleBackColor = true;
@@ -90,6 +91,7 @@ namespace GPA_Calculator
             this.loginButton.TabIndex = 5;
             this.loginButton.Text = "Login";
             this.loginButton.UseVisualStyleBackColor = true;
+            this.loginButton.Click += new System.EventHandler(this.loginButton_Click);
             // 
             // deleteUserButton
             // 
@@ -99,10 +101,22 @@ namespace GPA_Calculator
             this.deleteUserButton.TabIndex = 6;
             this.deleteUserButton.Text = "Delete User";
             this.deleteUserButton.UseVisualStyleBackColor = true;
+            this.deleteUserButton.Click += new System.EventHandler(this.deleteUserButton_Click);
+            // 
+            // editUserButton
+            // 
+            this.editUserButton.Location = new System.Drawing.Point(108, 265);
+            this.editUserButton.Name = "editUserButton";
+            this.editUserButton.Size = new System.Drawing.Size(75, 23);
+            this.editUserButton.TabIndex = 7;
+            this.editUserButton.Text = "Edit User";
+            this.editUserButton.UseVisualStyleBackColor = true;
+            this.editUserButton.Click += new System.EventHandler(this.editUserButton_Click);
             // 
             // Dashboard
             // 
-            this.ClientSize = new System.Drawing.Size(439, 319);
+            this.ClientSize = new System.Drawing.Size(439, 331);
+            this.Controls.Add(this.editUserButton);
             this.Controls.Add(this.deleteUserButton);
             this.Controls.Add(this.loginButton);
             this.Controls.Add(this.addNewUserButton);
@@ -125,6 +139,7 @@ namespace GPA_Calculator
         private System.Windows.Forms.Button addNewUserButton;
         private System.Windows.Forms.Button loginButton;
         private System.Windows.Forms.Button deleteUserButton;
+        private System.Windows.Forms.Button editUserButton;
     }
 }
 
