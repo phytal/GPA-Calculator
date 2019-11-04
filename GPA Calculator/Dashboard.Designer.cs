@@ -26,7 +26,7 @@ namespace GPA_Calculator
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
+        public void InitializeComponent()
         {
             this.nameLabel = new System.Windows.Forms.Label();
             this.nameBox = new System.Windows.Forms.TextBox();
@@ -71,7 +71,6 @@ namespace GPA_Calculator
             this.peopleFoundListbox.Name = "peopleFoundListbox";
             this.peopleFoundListbox.Size = new System.Drawing.Size(369, 212);
             this.peopleFoundListbox.TabIndex = 3;
-            this.peopleFoundListbox.SelectedIndexChanged += new System.EventHandler(this.peopleFoundListbox_SelectedIndexChanged);
             // 
             // addNewUserButton
             // 

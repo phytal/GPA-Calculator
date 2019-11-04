@@ -2,15 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
-using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
-using HtmlAgilityPack;
 using System.Text.RegularExpressions;
-using System.Web;
 
-namespace FISD_HAC_Access
+namespace GPA_Calculator
 {
     public class HAC
     {
@@ -24,7 +20,7 @@ namespace FISD_HAC_Access
                 request.KeepAlive = true;
                 request.Headers.Set(HttpRequestHeader.CacheControl, "max-age=0");
                 request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
-                request.Headers.Add("Origin", @"https://accesscenter.roundrockisd.org");
+                request.Headers.Add("Origin", @"https://hac.friscoisd.org/");
                 request.Headers.Add("Upgrade-Insecure-Requests", @"1");
                 request.UserAgent = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36";
                 request.ContentType = "application/x-www-form-urlencoded";
@@ -112,7 +108,7 @@ namespace FISD_HAC_Access
             }
             try
             {
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://accesscenter.roundrockisd.org/HomeAccess/Content/Student/Assignments.aspx");
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://hac.friscoisd.org/HomeAccess/Classes/Classwork");
 
                 request.KeepAlive = true;
                 request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";

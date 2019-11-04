@@ -15,17 +15,22 @@ namespace GPA_Calculator
         public EditUser()
         {
             InitializeComponent();
+
+            editUserNameText.Text = Variables.UserInfo.Item1;
+            editUserUsernameText.Text = Variables.UserInfo.Item2;
+            editUserPasswordText.Text = Variables.UserInfo.Item3;
         }
 
         private void createNewUserButton_Click(object sender, EventArgs e)
         {
             DataAccess db = new DataAccess();
 
-            db.InsertUser(newUserUsernameText.Text, newUserPasswordText.Text, newUserNameText.Text);
+            db.InsertUser(editUserUsernameText.Text, editUserPasswordText.Text, editUserNameText.Text);
 
-            newUserUsernameText.Text = "";
-            newUserPasswordText.Text = "";
-            newUserNameText.Text = "";
+            editUserUsernameText.Text = "";
+            editUserPasswordText.Text = "";
+            editUserNameText.Text = "";
+
         }
 
         private void createUserCancelButton_Click(object sender, EventArgs e)

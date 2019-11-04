@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Windows.Forms;
 
 namespace GPA_Calculator
@@ -36,11 +37,6 @@ namespace GPA_Calculator
             addNewUser.ShowDialog();
         }
 
-        private void peopleFoundListbox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void deleteUserButton_Click(object sender, EventArgs e)
         {
             DataAccess db = new DataAccess();
@@ -55,20 +51,32 @@ namespace GPA_Calculator
 
         private void loginButton_Click(object sender, EventArgs e)
         {
+            string text = peopleFoundListbox.GetItemText(peopleFoundListbox.SelectedItem);
+            string pattern = @"\s--\s";
+            string[] elements = System.Text.RegularExpressions.Regex.Split(text, pattern); //gets username, password, name from list
 
+            HAC hac = new HAC(); CookieContainer container;
+            HttpWebResponse response = hac.login(elements[0], elements[1], out container);
+            List<Assignment> assignments = hac.getAssignments(container, response.ResponseUri);//logs in and fetches grades
+            
+            foreach (Assignment assignment in assignments)
+            { Console.WriteLine(assignment); }
         }
 
         private void editUserButton_Click(object sender, EventArgs e)
         {
             DataAccess db = new DataAccess();
             string text = peopleFoundListbox.GetItemText(peopleFoundListbox.SelectedItem);
-            //TODO: get values from the string
 
             string pattern = @"\s--\s";
             string[] elements = System.Text.RegularExpressions.Regex.Split(text, pattern);
-            db.DeleteUser(elements[0], elements[1], elements[2]);
-
+            db.EditUser(elements[0], elements[1], elements[2]);
+            Variables.UserInfo = new Tuple<string, string, string>(elements[0], elements[1], elements[2]);
+            Hide();
+            EditUser editUser = new EditUser();
+            editUser.ShowDialog();
             UpdateBinding();
         }
+
     }
 }

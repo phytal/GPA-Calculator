@@ -29,27 +29,27 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditUser));
-            this.saveButton = new System.Windows.Forms.Button();
+            this.saveEditButton = new System.Windows.Forms.Button();
             this.createUserCancelButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.newUserNameText = new System.Windows.Forms.TextBox();
-            this.newUserUsernameText = new System.Windows.Forms.TextBox();
+            this.editUserNameText = new System.Windows.Forms.TextBox();
+            this.editUserUsernameText = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.newUserPasswordText = new System.Windows.Forms.TextBox();
+            this.editUserPasswordText = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.hacPicture = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.hacPicture)).BeginInit();
             this.SuspendLayout();
             // 
-            // saveButton
+            // saveEditButton
             // 
-            this.saveButton.Location = new System.Drawing.Point(231, 260);
-            this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(76, 23);
-            this.saveButton.TabIndex = 0;
-            this.saveButton.Text = "Save";
-            this.saveButton.UseVisualStyleBackColor = true;
-            this.saveButton.Click += new System.EventHandler(this.createNewUserButton_Click);
+            this.saveEditButton.Location = new System.Drawing.Point(231, 260);
+            this.saveEditButton.Name = "saveEditButton";
+            this.saveEditButton.Size = new System.Drawing.Size(76, 23);
+            this.saveEditButton.TabIndex = 0;
+            this.saveEditButton.Text = "Save";
+            this.saveEditButton.UseVisualStyleBackColor = true;
+            this.saveEditButton.Click += new System.EventHandler(this.createNewUserButton_Click);
             // 
             // createUserCancelButton
             // 
@@ -70,19 +70,19 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "Username";
             // 
-            // newUserNameText
+            // editUserNameText
             // 
-            this.newUserNameText.Location = new System.Drawing.Point(72, 26);
-            this.newUserNameText.Name = "newUserNameText";
-            this.newUserNameText.Size = new System.Drawing.Size(188, 20);
-            this.newUserNameText.TabIndex = 3;
+            this.editUserNameText.Location = new System.Drawing.Point(72, 26);
+            this.editUserNameText.Name = "editUserNameText";
+            this.editUserNameText.Size = new System.Drawing.Size(188, 20);
+            this.editUserNameText.TabIndex = 3;
             // 
-            // newUserUsernameText
+            // editUserUsernameText
             // 
-            this.newUserUsernameText.Location = new System.Drawing.Point(72, 75);
-            this.newUserUsernameText.Name = "newUserUsernameText";
-            this.newUserUsernameText.Size = new System.Drawing.Size(188, 20);
-            this.newUserUsernameText.TabIndex = 5;
+            this.editUserUsernameText.Location = new System.Drawing.Point(72, 75);
+            this.editUserUsernameText.Name = "editUserUsernameText";
+            this.editUserUsernameText.Size = new System.Drawing.Size(188, 20);
+            this.editUserUsernameText.TabIndex = 5;
             // 
             // label2
             // 
@@ -93,12 +93,12 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "Password";
             // 
-            // newUserPasswordText
+            // editUserPasswordText
             // 
-            this.newUserPasswordText.Location = new System.Drawing.Point(72, 133);
-            this.newUserPasswordText.Name = "newUserPasswordText";
-            this.newUserPasswordText.Size = new System.Drawing.Size(188, 20);
-            this.newUserPasswordText.TabIndex = 7;
+            this.editUserPasswordText.Location = new System.Drawing.Point(72, 133);
+            this.editUserPasswordText.Name = "editUserPasswordText";
+            this.editUserPasswordText.Size = new System.Drawing.Size(188, 20);
+            this.editUserPasswordText.TabIndex = 7;
             // 
             // label3
             // 
@@ -127,14 +127,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(319, 295);
             this.Controls.Add(this.hacPicture);
-            this.Controls.Add(this.newUserPasswordText);
+            this.Controls.Add(this.editUserPasswordText);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.newUserUsernameText);
+            this.Controls.Add(this.editUserUsernameText);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.newUserNameText);
+            this.Controls.Add(this.editUserNameText);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.createUserCancelButton);
-            this.Controls.Add(this.saveButton);
+            this.Controls.Add(this.saveEditButton);
             this.Name = "EditUser";
             this.Text = "AddNewUser";
             ((System.ComponentModel.ISupportInitialize)(this.hacPicture)).EndInit();
@@ -145,13 +145,13 @@
 
         #endregion
 
-        private System.Windows.Forms.Button saveButton;
+        private System.Windows.Forms.Button saveEditButton;
         private System.Windows.Forms.Button createUserCancelButton;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox newUserNameText;
-        private System.Windows.Forms.TextBox newUserUsernameText;
+        private System.Windows.Forms.TextBox editUserNameText;
+        private System.Windows.Forms.TextBox editUserUsernameText;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox newUserPasswordText;
+        private System.Windows.Forms.TextBox editUserPasswordText;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.PictureBox hacPicture;
     }
