@@ -15,16 +15,17 @@ namespace GPA_Calculator
             container = new CookieContainer();
             try
             {
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://hac.friscoisd.org/HomeAccess/Account/LogOn?ReturnUrl=%2fHomeAccess%2f");
+                HttpWebRequest request = (HttpWebRequest) WebRequest.Create(
+                    "https://hac.friscoisd.org/HomeAccess/Account/LogOn?ReturnUrl=%2fHomeAccess%2fClasses%2fClasswork");
 
                 request.KeepAlive = true;
                 request.Headers.Set(HttpRequestHeader.CacheControl, "max-age=0");
                 request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
                 request.Headers.Add("Origin", @"https://hac.friscoisd.org/");
                 request.Headers.Add("Upgrade-Insecure-Requests", @"1");
-                request.UserAgent = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36";
+                request.UserAgent = "Chrome/77.0.3865.120";
                 request.ContentType = "application/x-www-form-urlencoded";
-                request.Referer = "https://hac.friscoisd.org/HomeAccess/Account/LogOn?ReturnUrl=%2fHomeAccess%2f";
+                request.Referer = "https://hac.friscoisd.org/HomeAccess/Account/LogOn?ReturnUrl=%2fHomeAccess%2fClasses%2fClasswork";
                 request.Headers.Set(HttpRequestHeader.AcceptEncoding, "gzip, deflate");
                 request.Headers.Set(HttpRequestHeader.AcceptLanguage, "en-US,en;q=0.8");
                 request.CookieContainer = container;
@@ -32,7 +33,7 @@ namespace GPA_Calculator
                 request.ServicePoint.Expect100Continue = false;
 
                 string body = @"Database=10&LogOnDetails.UserName=" + username + "&LogOnDetails.Password=" + password;
-                byte[] postBytes = System.Text.Encoding.UTF8.GetBytes(body);
+                byte[] postBytes = Encoding.UTF8.GetBytes(body);
                 request.ContentLength = postBytes.Length;
                 Stream stream = request.GetRequestStream();
                 stream.Write(postBytes, 0, postBytes.Length);
@@ -99,6 +100,7 @@ namespace GPA_Calculator
             //end horrid part
             return ret;
         }
+        //TODO: something wrong here, going to wrong url???
         private string getRawGradeData(CookieContainer cookies, Uri requestUri)
         {
             string s = string.Empty;
@@ -108,17 +110,16 @@ namespace GPA_Calculator
             }
             try
             {
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://hac.friscoisd.org/HomeAccess/Classes/Classwork");
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(requestUri);
 
                 request.KeepAlive = true;
                 request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
                 request.Headers.Add("Upgrade-Insecure-Requests", @"1");
-                request.UserAgent = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36";
-                request.Headers.Set(HttpRequestHeader.AcceptEncoding, "gzip, deflate, sdch");
+                request.UserAgent = "Chrome/77.0.3865.120";
+                request.Headers.Set(HttpRequestHeader.AcceptEncoding, "gzip, deflate");
                 request.Headers.Set(HttpRequestHeader.AcceptLanguage, "en-US,en;q=0.8");
                 request.Headers.Set(HttpRequestHeader.Cookie, s);
-
-                return readResponse((HttpWebResponse)request.GetResponse());
+                return readResponse((HttpWebResponse)request.GetResponse()); //
             }
             catch
             {
