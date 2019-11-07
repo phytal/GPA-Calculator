@@ -62,7 +62,7 @@ namespace GPA_Calculator
             this.searchButton.TabIndex = 2;
             this.searchButton.Text = "Search";
             this.searchButton.UseVisualStyleBackColor = true;
-            this.searchButton.Click += new System.EventHandler(this.searchButtonn_Click);
+            this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
             // 
             // peopleFoundListbox
             // 
@@ -71,6 +71,7 @@ namespace GPA_Calculator
             this.peopleFoundListbox.Name = "peopleFoundListbox";
             this.peopleFoundListbox.Size = new System.Drawing.Size(369, 212);
             this.peopleFoundListbox.TabIndex = 3;
+            this.peopleFoundListbox.SelectedIndexChanged += new System.EventHandler(this.peopleFoundListbox_SelectedIndexChanged);
             // 
             // addNewUserButton
             // 

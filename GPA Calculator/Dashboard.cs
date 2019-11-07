@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Net;
 using System.Windows.Forms;
 
@@ -11,7 +12,13 @@ namespace GPA_Calculator
         public Dashboard()
         {
             InitializeComponent();
-            
+
+            loginButton.Enabled = false;
+            loginButton.ForeColor = Color.Gray;
+            editUserButton.Enabled = false;
+            editUserButton.ForeColor = Color.Gray;
+            deleteUserButton.Enabled = false;
+            deleteUserButton.ForeColor = Color.Gray;
             UpdateBinding();
         }
 
@@ -21,7 +28,7 @@ namespace GPA_Calculator
             peopleFoundListbox.DisplayMember = "FullInfo";
         }
 
-        private void searchButtonn_Click(object sender, EventArgs e)
+        private void searchButton_Click(object sender, EventArgs e)
         {
             DataAccess db = new DataAccess();
 
@@ -79,5 +86,14 @@ namespace GPA_Calculator
             UpdateBinding();
         }
 
+        private void peopleFoundListbox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            loginButton.Enabled = true;
+            loginButton.ForeColor = SystemColors.ControlText;
+            editUserButton.Enabled = true;
+            editUserButton.ForeColor = SystemColors.ControlText;
+            deleteUserButton.Enabled = true;
+            deleteUserButton.ForeColor = SystemColors.ControlText;
+        }
     }
 }

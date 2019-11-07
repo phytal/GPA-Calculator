@@ -130,6 +130,7 @@
             this.directLoginButton.TabIndex = 9;
             this.directLoginButton.Text = "Direct Login";
             this.directLoginButton.UseVisualStyleBackColor = true;
+            this.directLoginButton.Click += new System.EventHandler(this.directLoginButton_Click);
             // 
             // AddNewUser
             // 
