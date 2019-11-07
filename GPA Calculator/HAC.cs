@@ -100,7 +100,6 @@ namespace GPA_Calculator
             //end horrid part
             return ret;
         }
-        //TODO: something wrong here, going to wrong url???
         private string getRawGradeData(CookieContainer cookies, Uri requestUri)
         {
             string s = string.Empty;
@@ -110,7 +109,7 @@ namespace GPA_Calculator
             }
             try
             {
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(requestUri);
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri("https://hac.friscoisd.org/HomeAccess/Content/Student/Assignments.aspx"));
 
                 request.KeepAlive = true;
                 request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
