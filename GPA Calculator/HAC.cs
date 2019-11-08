@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using System.Net;
 using System.Text;
-using System.Text.RegularExpressions;
+using HtmlAgilityPack;
 
 namespace GPA_Calculator
 {
@@ -46,59 +47,33 @@ namespace GPA_Calculator
                 return null;
             }
         }
-        public List<Assignment> getAssignments(CookieContainer cookies, Uri requestUri)
+        public List<Course> getCourses(CookieContainer cookies, Uri requestUri)
         {
-            Regex trimmer = new Regex(@"\s\s+", RegexOptions.Compiled);
             string data = getRawGradeData(cookies, requestUri);
-            List<string> raw = new List<string>();
-            List<Assignment> ret = new List<Assignment>();
-            //past this line is absolutely horrid
-            //you can thank my lack of regex knowledge for this
-            int x = data.IndexOf(">", data.IndexOf("<a class=\"sg-header-heading\"")) + 1;
-            int y = data.IndexOf("</a>", x);
-            string course = data.Substring(x, y - x).Trim();
-            int z = data.IndexOf("AVG ", x) + 4;
-            double average = double.Parse(data.Substring(z, data.IndexOf("%", z) - z).Trim());
-            data = data.Substring(y);
-            bool flag = false;
-            while (data.IndexOf("title=\"Title") != -1)
-            {
-                int a = data.IndexOf("title=\"Title");
-                int index = data.IndexOf("<a class=\"sg-header-heading\"");
-                if ((index == -1) && (!flag)) break;
-                if (index != -1)
-                {
-                    x = data.IndexOf(">", index) + 1;
-                }
-                if (((a < x) || (flag && index == -1)))
-                {
-                    int b = data.IndexOf("\"", a + "title=".Length + 1);
-                    string s = data.Substring(a + "title=".Length + 1, b - a - 7); //7 is the magic number
-                    data = data.Substring(b);
-                    int c = data.IndexOf("</td><td>");
-                    data = data.Substring(c + 7);
-                    c = data.IndexOf("</td><td>") + 10; //10 is also magic
-                    int d = data.IndexOf("</td>", c + 5); //as is 5
 
-                    //you can open your eyes now
-                    ret.Add(new Assignment
-                    {
-                        course = trimmer.Replace(course, " "),
-                        courseAverage = average,});
-                }
-                else
-                {
-                    x = data.IndexOf(">", data.IndexOf("<a class=\"sg-header-heading\"")) + 1;
-                    y = data.IndexOf("</a>", x);
-                    course = data.Substring(x, y - x).Trim();
-                    z = data.IndexOf("AVG ", x) + 4;
-                    average = double.Parse(data.Substring(z, data.IndexOf("%", z) - z).Trim());
-                    data = data.Substring(y);
-                    flag = true;
-                }
+            var htmlDocument = new HtmlDocument();
+            htmlDocument.LoadHtml(data);
+
+            var courseHtml = htmlDocument.DocumentNode.Descendants("div")
+                .Where(node => node.GetAttributeValue("class", "")
+                    .Equals("AssignmentClass")).ToList();
+
+            List<Course> assignmentList= new List<Course>();
+            foreach (var courseHtmlItem in courseHtml)
+            {
+                var courseName = courseHtmlItem.Descendants("a")
+                    .Where(node => node.GetAttributeValue("class", "")
+                        .Equals("sg-header-heading")).FirstOrDefault().InnerText.Trim();
+               var courseGrade = courseHtmlItem.Descendants("span")
+                    .Where(node => node.GetAttributeValue("class", "")
+                        .Equals("sg-header-heading sg-right")).FirstOrDefault().InnerText.Trim().Remove(0, 15).TrimEnd('%');
+               Course course = new Course();
+               course.course = courseName;
+               course.courseAverage = double.Parse(courseGrade);
+               assignmentList.Add(course);
             }
-            //end horrid part
-            return ret;
+
+            return assignmentList;
         }
         private string getRawGradeData(CookieContainer cookies, Uri requestUri)
         {
@@ -151,7 +126,7 @@ namespace GPA_Calculator
             }
         }
     }
-    public class Assignment
+    public class Course
     {
         public string course { get; set; }
         public double courseAverage { get; set; }
