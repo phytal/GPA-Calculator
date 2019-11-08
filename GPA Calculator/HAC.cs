@@ -5,6 +5,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 
 namespace GPA_Calculator
@@ -57,13 +58,22 @@ namespace GPA_Calculator
             var courseHtml = htmlDocument.DocumentNode.Descendants("div")
                 .Where(node => node.GetAttributeValue("class", "")
                     .Equals("AssignmentClass")).ToList();
-
+            Regex x = new Regex(@"\w+\s-\s\d\s");
             List<Course> assignmentList= new List<Course>();
             foreach (var courseHtmlItem in courseHtml)
             {
                 var courseName = courseHtmlItem.Descendants("a")
                     .Where(node => node.GetAttributeValue("class", "")
                         .Equals("sg-header-heading")).FirstOrDefault().InnerText.Trim();
+                courseName = x.Replace(courseName, @"").Trim();
+                while (courseName.Substring(courseName.Length-2) == "S1" || courseName.Substring(courseName.Length - 2) == "S2")
+                {
+                    courseName = courseName.Replace(courseName.Substring(courseName.Length - 2), "");
+                    while (courseName.LastOrDefault() == ' ' || courseName.LastOrDefault() == '-')
+                    {
+                        courseName = courseName.TrimEnd(courseName[courseName.Length - 1]);
+                    }
+                }
                var courseGrade = courseHtmlItem.Descendants("span")
                     .Where(node => node.GetAttributeValue("class", "")
                         .Equals("sg-header-heading sg-right")).FirstOrDefault().InnerText.Trim().Remove(0, 15).TrimEnd('%');

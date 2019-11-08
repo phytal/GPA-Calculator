@@ -68,7 +68,7 @@ namespace GPA_Calculator
             List<Course> courses = hac.getCourses(container, response.ResponseUri);//logs in and fetches grades
             
             foreach (Course course in courses)
-            { Console.WriteLine(course.course + course.courseAverage); }
+            { Console.WriteLine($"{course.course} - {course.courseAverage}"); }
         }
 
         private void editUserButton_Click(object sender, EventArgs e)
