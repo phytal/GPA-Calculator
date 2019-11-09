@@ -14,7 +14,7 @@ namespace GPA_Calculator
             {"GT HumanitiesI/PAP Eng", "PAP" },
             {"PAP Spanish II", "PAP" },
             {"Band A: YR 1", "OL" },
-            {"A Band Inst. Ens. YR 1","OL" },
+            {"A Band Inst. Ens. YR 1", "OL" },
             {"PAP Algebra II", "PAP" },
             {"PAP Biology", "PAP" },
             {"AP Human Geog- Grade 9", "AP" },
