@@ -68,7 +68,8 @@
     <Compile Include="AddNewUser.Designer.cs">
       <DependentUpon>AddNewUser.cs</DependentUpon>
     </Compile>
-    <Compile Include="DataAccess.cs" />
+    <Compile Include="Helpers.cs" />
+    <Compile Include="SQL\DataAccess.cs" />
     <Compile Include="Dashboard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,11 +77,17 @@
       <DependentUpon>Dashboard.cs</DependentUpon>
     </Compile>
     <Compile Include="HAC.cs" />
-    <Compile Include="Helper.cs" />
+    <Compile Include="SQL\Helper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="User.cs" />
+    <Compile Include="SQL\User.cs" />
     <Compile Include="Variables.cs" />
+    <Compile Include="ViewStats.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ViewStats.Designer.cs">
+      <DependentUpon>ViewStats.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="EditUser.resx">
       <DependentUpon>EditUser.cs</DependentUpon>
     </EmbeddedResource>
@@ -101,6 +108,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="ViewStats.resx">
+      <DependentUpon>ViewStats.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -115,5 +125,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

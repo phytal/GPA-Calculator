@@ -41,10 +41,10 @@ namespace GPA_Calculator
             HAC hac = new HAC();
             CookieContainer container;
             HttpWebResponse response = hac.login(newUserUsernameText.Text, newUserPasswordText.Text, out container); //starts with second element bc first one is name
-            List<Course> assignments = hac.getCourses(container, response.ResponseUri);//logs in and fetches grades
+            hac.GetCourses(container, response.ResponseUri);//logs in and fetches grades
 
-            foreach (Course assignment in assignments)
-            { Console.WriteLine(assignment); }
+            //foreach (Course assignment in assignments)
+            //{ Console.WriteLine(assignment); }
         }
     }
 }

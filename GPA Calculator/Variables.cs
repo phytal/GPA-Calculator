@@ -9,7 +9,9 @@ namespace GPA_Calculator
     internal class Variables
     {
         internal static Tuple<string, string, string> UserInfo = new Tuple<string, string, string>(null,null,null);
-        internal static  Dictionary<string, string> ClassScale = new Dictionary<string, string>() //classname, ap/pap/ol
+        //internal static List<Course> CourseList = new List<Course>();
+        internal static List<List<Course>> AllCourseLists = new List<List<Course>>(); //a list of all of the courses you took sorted by year
+        internal static Dictionary<string, string> ClassScale = new Dictionary<string, string>() //classname, ap/pap/ol
         {
             {"GT HumanitiesI/PAP Eng", "PAP" },
             {"PAP Spanish II", "PAP" },

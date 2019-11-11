@@ -65,10 +65,13 @@ namespace GPA_Calculator
             HAC hac = new HAC();
             CookieContainer container;
             HttpWebResponse response = hac.login(elements[1], elements[2], out container); //starts with second element bc first one is name
-            List<Course> courses = hac.getCourses(container, response.ResponseUri);//logs in and fetches grades
-            
-            foreach (Course course in courses)
-            { Console.WriteLine($"{course.course} - {course.courseAverage}"); }
+            //List<Course> courses = hac.getCourses(container, response.ResponseUri);
+            hac.GetCourses(container, response.ResponseUri);//logs in and fetches grades
+            //foreach (Course course in courses)
+            //{ Console.WriteLine($"{course.course} - {course.courseAverage}"); }
+            Hide();
+            ViewStats viewStats = new ViewStats();
+            viewStats.ShowDialog();
         }
 
         private void editUserButton_Click(object sender, EventArgs e)
