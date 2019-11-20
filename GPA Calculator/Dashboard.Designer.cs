@@ -36,6 +36,7 @@ namespace GPA_Calculator
             this.loginButton = new System.Windows.Forms.Button();
             this.deleteUserButton = new System.Windows.Forms.Button();
             this.editUserButton = new System.Windows.Forms.Button();
+            this.loginProgressBar = new System.Windows.Forms.ProgressBar();
             this.SuspendLayout();
             // 
             // nameLabel
@@ -113,9 +114,17 @@ namespace GPA_Calculator
             this.editUserButton.UseVisualStyleBackColor = true;
             this.editUserButton.Click += new System.EventHandler(this.editUserButton_Click);
             // 
+            // loginProgressBar
+            // 
+            this.loginProgressBar.Location = new System.Drawing.Point(189, 294);
+            this.loginProgressBar.Name = "loginProgressBar";
+            this.loginProgressBar.Size = new System.Drawing.Size(204, 12);
+            this.loginProgressBar.TabIndex = 8;
+            // 
             // Dashboard
             // 
             this.ClientSize = new System.Drawing.Size(439, 331);
+            this.Controls.Add(this.loginProgressBar);
             this.Controls.Add(this.editUserButton);
             this.Controls.Add(this.deleteUserButton);
             this.Controls.Add(this.loginButton);
@@ -140,6 +149,7 @@ namespace GPA_Calculator
         private System.Windows.Forms.Button loginButton;
         private System.Windows.Forms.Button deleteUserButton;
         private System.Windows.Forms.Button editUserButton;
+        private System.Windows.Forms.ProgressBar loginProgressBar;
     }
 }
 

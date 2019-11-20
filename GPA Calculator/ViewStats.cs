@@ -21,31 +21,45 @@ namespace GPA_Calculator
                 TabPage tp = new TabPage($"Year {i}");
                 chooseTime.TabPages.Add(tp);
 
-                CheckedListBox clb = new CheckedListBox();
-                clb.Dock = DockStyle.Fill;
+                CheckedListBox clb = new CheckedListBox
+                {
+                    AccessibleName = $"Year{i}CLB", 
+                    Dock = DockStyle.Fill
+                };
 
                 foreach (var course in courseList)
                 {
                     clb.Items.Insert(0, course.course + " - " + course.courseAverage);
                 }
-
+                Variables.AllCheckedListBoxes.Add(clb);
                 tp.Controls.Add(clb);
                 i++;
             }
+
+            Variables.NumberOfYears = i;
         }
 
         private void calculateGPAButton_Click(object sender, EventArgs e)
         {
-            double weightedGPA = Calculator.CalculateWeightedGPA();
-            double unweightedGPA = Calculator.CalculateUnweightedGPA();
+            List<CheckedListBox> checkedListBoxesList = new List<CheckedListBox>();
+            for (byte i = 1; i <= Variables.NumberOfYears; i++)
+            {
+
+                //goes to tab control and finds the tab
+                foreach (TabPage tp in chooseTime.TabPages)
+                {
+                    foreach (CheckedListBox clb in tp.Controls)
+                    {
+                        if (!checkedListBoxesList.Contains(clb))
+                            checkedListBoxesList.Add(clb);
+                    }
+                }
+            }
+            double weightedGPA = Calculator.CalculateWeightedGPA(checkedListBoxesList);
+            double unweightedGPA = Calculator.CalculateUnweightedGPA(checkedListBoxesList);
 
             weightedGpaOutputLabel.Text = weightedGPA.ToString();
             unweightedGpaOutputLabel.Text = unweightedGPA.ToString();
-        }
-
-        private void selectClassToExclude_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void gpaCalculationBar_Click(object sender, EventArgs e)

@@ -22,8 +22,10 @@ namespace GPA_Calculator
         {
             using (IDbConnection connection = new SqlConnection(Helper.CnnVal("GPA Calculator")))
             {
-                List<User> users = new List<User>();
-                users.Add(new User { Username= username, Password = password, Name = name });
+                List<User> users = new List<User>
+                {
+                    new User { Username = username, Password = password, Name = name }
+                };
                 connection.Execute("dbo.GPACalculator_InsertUser @Username, @Password, @Name", users);
             }
         }
@@ -32,8 +34,10 @@ namespace GPA_Calculator
         {
             using (IDbConnection connection = new SqlConnection(Helper.CnnVal("GPA Calculator")))
             {
-                List<User> users = new List<User>();
-                users.Add(new User { Username = username, Password = password, Name = name });
+                List<User> users = new List<User>
+                {
+                    new User { Username = username, Password = password, Name = name }
+                };
                 connection.Execute("dbo.GPACalculator_DeleteUser @Username, @Password, @Name", users);
             }
         }
@@ -42,8 +46,10 @@ namespace GPA_Calculator
         {
             using (IDbConnection connection = new SqlConnection(Helper.CnnVal("GPA Calculator")))
             {
-                List<User> users = new List<User>();
-                users.Add(new User { Username = username, Password = password, Name = name });
+                List<User> users = new List<User>
+                {
+                    new User { Username = username, Password = password, Name = name }
+                };
                 connection.Execute("dbo.GPACalculator_EditUser @Username, @Password, @Name", users);
             }
         }

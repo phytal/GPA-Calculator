@@ -63,8 +63,7 @@ namespace GPA_Calculator
             string[] elements = System.Text.RegularExpressions.Regex.Split(text, pattern); //gets username, password, name from list
 
             HAC hac = new HAC();
-            CookieContainer container;
-            HttpWebResponse response = hac.login(elements[1], elements[2], out container); //starts with second element bc first one is name
+            HttpWebResponse response = hac.login(elements[1], elements[2], out var container); //starts with second element bc first one is name
             //List<Course> courses = hac.getCourses(container, response.ResponseUri);
             hac.GetCourses(container, response.ResponseUri);//logs in and fetches grades
             //foreach (Course course in courses)

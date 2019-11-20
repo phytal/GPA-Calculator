@@ -30,14 +30,12 @@
         {
             this.calculateGPAButton = new System.Windows.Forms.Button();
             this.selectClassToExclude = new System.Windows.Forms.CheckedListBox();
-            this.gpaCalculationBar = new System.Windows.Forms.ProgressBar();
             this.chooseTime = new System.Windows.Forms.TabControl();
             this.infoLabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.weightedGpaOutputLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.unweightedGpaOutputLabel = new System.Windows.Forms.Label();
-            this.chooseTime.SuspendLayout();
             this.SuspendLayout();
             // 
             // calculateGPAButton
@@ -59,27 +57,19 @@
             this.selectClassToExclude.Size = new System.Drawing.Size(341, 304);
             this.selectClassToExclude.TabIndex = 1;
             // 
-            // gpaCalculationBar
-            // 
-            this.gpaCalculationBar.Location = new System.Drawing.Point(359, 341);
-            this.gpaCalculationBar.Name = "gpaCalculationBar";
-            this.gpaCalculationBar.Size = new System.Drawing.Size(223, 11);
-            this.gpaCalculationBar.TabIndex = 2;
-            this.gpaCalculationBar.Click += new System.EventHandler(this.gpaCalculationBar_Click);
-            // 
             // chooseTime
             // 
             this.chooseTime.Location = new System.Drawing.Point(12, 12);
             this.chooseTime.Name = "chooseTime";
             this.chooseTime.SelectedIndex = 0;
-            this.chooseTime.Size = new System.Drawing.Size(341, 323);
+            this.chooseTime.Size = new System.Drawing.Size(341, 294);
             this.chooseTime.TabIndex = 3;
             // 
             // infoLabel
             // 
             this.infoLabel.AutoSize = true;
             this.infoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.infoLabel.Location = new System.Drawing.Point(9, 341);
+            this.infoLabel.Location = new System.Drawing.Point(12, 315);
             this.infoLabel.Name = "infoLabel";
             this.infoLabel.Size = new System.Drawing.Size(323, 16);
             this.infoLabel.TabIndex = 4;
@@ -129,18 +119,16 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(598, 363);
+            this.ClientSize = new System.Drawing.Size(598, 345);
             this.Controls.Add(this.unweightedGpaOutputLabel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.weightedGpaOutputLabel);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.infoLabel);
             this.Controls.Add(this.chooseTime);
-            this.Controls.Add(this.gpaCalculationBar);
             this.Controls.Add(this.calculateGPAButton);
             this.Name = "ViewStats";
             this.Text = "ViewStats";
-            this.chooseTime.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -150,7 +138,6 @@
 
         private System.Windows.Forms.Button calculateGPAButton;
         private System.Windows.Forms.CheckedListBox selectClassToExclude;
-        private System.Windows.Forms.ProgressBar gpaCalculationBar;
         private System.Windows.Forms.TabControl chooseTime;
         private System.Windows.Forms.Label infoLabel;
         private System.Windows.Forms.Label label2;
