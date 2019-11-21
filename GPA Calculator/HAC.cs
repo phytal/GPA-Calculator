@@ -7,6 +7,7 @@ using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using GPACalculator;
 using HtmlAgilityPack;
 
 namespace GPA_Calculator
@@ -54,8 +55,12 @@ namespace GPA_Calculator
         {
             try
             {
+                //report card
+                string reportCardData = getRawReportCardData(cookies, requestUri);
+                var reportCardHtmlDocument = new HtmlDocument();
+                reportCardHtmlDocument.LoadHtml(reportCardData);
+                List<Course> reportCardCourses = CheckReportCard.CheckReportCardTask(reportCardHtmlDocument);
                 //current courses
-                //TODO: include report card and automatically calculate if a report card and how many report cards is/are needed
                 string data = getRawGradeData(cookies, requestUri);
 
                 var htmlDocument = new HtmlDocument();
@@ -72,6 +77,7 @@ namespace GPA_Calculator
                         .Where(node => node.GetAttributeValue("class", "")
                             .Equals("sg-header-heading")).FirstOrDefault().InnerText.Trim();
                     courseName = x.Replace(courseName, @"").Trim();
+                    //removes semester 
                     while (courseName.Substring(courseName.Length - 2) == "S1" ||
                            courseName.Substring(courseName.Length - 2) == "S2")
                     {
@@ -150,9 +156,10 @@ namespace GPA_Calculator
                             }); //turns the grade (string) received into a double 
                         }
                     }
-                    Variables.AllCourseLists.Add(oldAssignmentList);
+                    Variables.AllCourseLists.Add(oldAssignmentList); //old courses
                 }
-                Variables.AllCourseLists.Add(assignmentList);
+                Variables.AllCourseLists.Add(reportCardCourses); //report card
+                Variables.AllCourseLists.Add(assignmentList); //new courses
             }
             catch (Exception e)
             {
@@ -180,7 +187,7 @@ namespace GPA_Calculator
                 request.Headers.Set(HttpRequestHeader.AcceptEncoding, "gzip, deflate");
                 request.Headers.Set(HttpRequestHeader.AcceptLanguage, "en-US,en;q=0.8");
                 request.Headers.Set(HttpRequestHeader.Cookie, s);
-                return readResponse((HttpWebResponse)request.GetResponse()); //
+                return readResponse((HttpWebResponse)request.GetResponse());
             }
             catch
             {
@@ -206,7 +213,33 @@ namespace GPA_Calculator
                 request.Headers.Set(HttpRequestHeader.AcceptEncoding, "gzip, deflate");
                 request.Headers.Set(HttpRequestHeader.AcceptLanguage, "en-US,en;q=0.8");
                 request.Headers.Set(HttpRequestHeader.Cookie, s);
-                return readResponse((HttpWebResponse)request.GetResponse()); //
+                return readResponse((HttpWebResponse)request.GetResponse());
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        private string getRawReportCardData(CookieContainer cookies, Uri requestUri)
+        {
+            string s = string.Empty;
+            foreach (Cookie cookie in cookies.GetCookies(requestUri))
+            {
+                s += (cookie.Name + "=" + cookie.Value + "; ");
+            }
+            try
+            {
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri("https://hac.friscoisd.org/HomeAccess/Content/Student/ReportCards.aspx"));
+
+                request.KeepAlive = true;
+                request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
+                request.Headers.Add("Upgrade-Insecure-Requests", @"1");
+                request.UserAgent = "Chrome/77.0.3865.120";
+                request.Headers.Set(HttpRequestHeader.AcceptEncoding, "gzip, deflate");
+                request.Headers.Set(HttpRequestHeader.AcceptLanguage, "en-US,en;q=0.8");
+                request.Headers.Set(HttpRequestHeader.Cookie, s);
+                return readResponse((HttpWebResponse)request.GetResponse());
             }
             catch
             {
@@ -216,8 +249,9 @@ namespace GPA_Calculator
 
         public bool isValidLogin(HttpWebResponse response)
         {
-            return !readResponse(response).Contains("You have entered an invalid username or password");
+            return !readResponse(response).Contains("You have entered an incorrect HAC ID or password");
         }
+
         private string readResponse(HttpWebResponse response)
         {
             using (Stream responseStream = response.GetResponseStream())

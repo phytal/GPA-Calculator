@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace GPA_Calculator
@@ -7,39 +6,49 @@ namespace GPA_Calculator
 
     public class Calculator
     {
-        private static List<List<Course>> uncheckedCourses = new List<List<Course>>();
+        internal static List<List<Course>> uncheckedCourses = new List<List<Course>>();
         public static double CalculateWeightedGPA(List<CheckedListBox> checkedListBoxesList)
         {
             var allCourseLists = Variables.AllCourseLists;
             double totalGPA = 0;
             //gets all of the boxes that are checked to be excluded from
             var checkedBoxes = Helpers.CheckForCheckedBoxes(checkedListBoxesList);
+            //if there are checked boxes
             var yearNumber = 0;
             if (checkedBoxes.Count != 0)
             {
                 foreach (var year in allCourseLists)
                 {
                     yearNumber++;
+                    var i = 1;
                     List<Course> subList = new List<Course>();
                     foreach (var course in year)
                     {
-                        var checkedBoxIndex = yearNumber - 1;
+                        var checkedBoxIndex = i - 1;
+
                         //if it goes over it breaks to prevent errors
-                        if (checkedBoxIndex > checkedBoxes.Count - 1)
+                        if (i > checkedBoxes.Count)
                         {
+                            //for classes after first checked box
                             subList.Add(course);
                             continue;
                         }
+
                         //if there are any overlapping classes
-                        if (checkedBoxes[checkedBoxIndex].Classes.Contains(course.course))
+                        if (checkedBoxes[checkedBoxIndex].Classes.Contains(course.course) && checkedBoxes[checkedBoxIndex].Year.Equals(yearNumber))
                         {
+                            i++;
                             continue;
                         }
+
                         subList.Add(course);
                     }
+
                     uncheckedCourses.Add(subList);
                 }
             }
+            //if none are checked
+            else uncheckedCourses = allCourseLists;
 
             var totalCourses = 0;
             //gets total number of courses

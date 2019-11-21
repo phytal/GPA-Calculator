@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GPA_Calculator
@@ -18,6 +13,10 @@ namespace GPA_Calculator
             byte i = 1;
             foreach (var courseList in Variables.AllCourseLists)
             {
+                if(courseList == Variables.AllCourseLists.Last())
+                {
+                    i--;
+                }
                 TabPage tp = new TabPage($"Year {i}");
                 chooseTime.TabPages.Add(tp);
 
@@ -42,9 +41,10 @@ namespace GPA_Calculator
         private void calculateGPAButton_Click(object sender, EventArgs e)
         {
             List<CheckedListBox> checkedListBoxesList = new List<CheckedListBox>();
+            //sets to default every time button is clicked
+            Calculator.uncheckedCourses = new List<List<Course>>();
             for (byte i = 1; i <= Variables.NumberOfYears; i++)
             {
-
                 //goes to tab control and finds the tab
                 foreach (TabPage tp in chooseTime.TabPages)
                 {
@@ -60,11 +60,6 @@ namespace GPA_Calculator
 
             weightedGpaOutputLabel.Text = weightedGPA.ToString();
             unweightedGpaOutputLabel.Text = unweightedGPA.ToString();
-        }
-
-        private void gpaCalculationBar_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

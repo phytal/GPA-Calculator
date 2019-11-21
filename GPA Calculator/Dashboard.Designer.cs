@@ -37,6 +37,7 @@ namespace GPA_Calculator
             this.deleteUserButton = new System.Windows.Forms.Button();
             this.editUserButton = new System.Windows.Forms.Button();
             this.loginProgressBar = new System.Windows.Forms.ProgressBar();
+            this.errorLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // nameLabel
@@ -116,14 +117,27 @@ namespace GPA_Calculator
             // 
             // loginProgressBar
             // 
-            this.loginProgressBar.Location = new System.Drawing.Point(189, 294);
+            this.loginProgressBar.Location = new System.Drawing.Point(189, 291);
+            this.loginProgressBar.MarqueeAnimationSpeed = 50;
+            this.loginProgressBar.Maximum = 2;
             this.loginProgressBar.Name = "loginProgressBar";
             this.loginProgressBar.Size = new System.Drawing.Size(204, 12);
+            this.loginProgressBar.Step = 1;
             this.loginProgressBar.TabIndex = 8;
+            // 
+            // errorLabel
+            // 
+            this.errorLabel.AutoSize = true;
+            this.errorLabel.Location = new System.Drawing.Point(189, 306);
+            this.errorLabel.Name = "errorLabel";
+            this.errorLabel.Size = new System.Drawing.Size(53, 13);
+            this.errorLabel.TabIndex = 9;
+            this.errorLabel.Text = "No errors!";
             // 
             // Dashboard
             // 
-            this.ClientSize = new System.Drawing.Size(439, 331);
+            this.ClientSize = new System.Drawing.Size(415, 331);
+            this.Controls.Add(this.errorLabel);
             this.Controls.Add(this.loginProgressBar);
             this.Controls.Add(this.editUserButton);
             this.Controls.Add(this.deleteUserButton);
@@ -150,6 +164,7 @@ namespace GPA_Calculator
         private System.Windows.Forms.Button deleteUserButton;
         private System.Windows.Forms.Button editUserButton;
         private System.Windows.Forms.ProgressBar loginProgressBar;
+        private System.Windows.Forms.Label errorLabel;
     }
 }
 

@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Net;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GPA_Calculator
@@ -58,16 +60,24 @@ namespace GPA_Calculator
 
         private void loginButton_Click(object sender, EventArgs e)
         {
+            loginProgressBar.PerformStep();
+            errorLabel.Text = "Logging in...";
             string text = peopleFoundListbox.GetItemText(peopleFoundListbox.SelectedItem);
             string pattern = @"\s--\s";
             string[] elements = System.Text.RegularExpressions.Regex.Split(text, pattern); //gets username, password, name from list
 
             HAC hac = new HAC();
             HttpWebResponse response = hac.login(elements[1], elements[2], out var container); //starts with second element bc first one is name
-            //List<Course> courses = hac.getCourses(container, response.ResponseUri);
+            loginProgressBar.PerformStep();
+            errorLabel.Text = "Logged in!";
+            bool validLogin = hac.isValidLogin(response);
+            if (validLogin != true) //checks if login creds are true
+            {
+                string[] errorText = {"Either the HAC username or password is incorrect."};
+                errorLabel.Text = errorText[0];
+                return;
+            }
             hac.GetCourses(container, response.ResponseUri);//logs in and fetches grades
-            //foreach (Course course in courses)
-            //{ Console.WriteLine($"{course.course} - {course.courseAverage}"); }
             Hide();
             ViewStats viewStats = new ViewStats();
             viewStats.ShowDialog();

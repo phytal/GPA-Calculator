@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GPA_Calculator
 {
     internal class Variables
     {
+        internal static DateTime ReportingPeriod1 = new DateTime(2019, 10, 8); //end of first marking period etc.
+        internal static DateTime ReportingPeriod2 = new DateTime(2019, 12, 20);
+        internal static DateTime ReportingPeriod3 = new DateTime(2020, 3, 20);
         internal static Tuple<string, string, string> UserInfo = new Tuple<string, string, string>(null,null,null);
         internal static int NumberOfYears = 0;
         internal static List<CheckedListBox> AllCheckedListBoxes = new List<CheckedListBox>();
