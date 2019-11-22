@@ -6,6 +6,17 @@ namespace GPA_Calculator
 {
     public class Helpers
     {
+        //public static string HelpCmd()
+        //{
+        //    string helpString = "The available commands are:\n";
+        //    foreach (var cmd in Variables.cmdDictionary)
+        //    {
+        //        helpString += $"{cmd} \n";
+        //    }
+
+        //    return helpString;
+        //}
+
         public static List<CheckedBoxesInfo> CheckForCheckedBoxes(List<CheckedListBox> clb)
         {
             //a list of 2 values-the year and the list of classes that are checked
@@ -13,7 +24,7 @@ namespace GPA_Calculator
             //foreach year in the list
             foreach (var checkedListBox in clb)
             {
-                
+
                 List<string> checkedSubList = new List<string>();
                 //cycles through the list of checked boxes and adds them to our list of checked boxes
                 for (byte i = 0; i <= checkedListBox.CheckedItems.Count - 1; i++)
@@ -46,6 +57,7 @@ namespace GPA_Calculator
 
                 }
             }
+
             return checkedList;
         }
     }

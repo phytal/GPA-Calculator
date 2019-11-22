@@ -28,5 +28,14 @@ namespace GPA_Calculator
             {"GEOM", "PAP" },
             {"SPAN 1", "PAP" }
         };
+        //internal static Dictionary<string, string> cmdDictionary = new Dictionary<string, string> //cmd, output
+        //{
+        //    {"help", Helpers.HelpCmd() },
+        //    {"defaultUser", "Please type the name, username and password in the following format:\n" +
+        //                    "name -- username -- password\n" +
+        //                    "Ex: William Zhang -- Zhang.W -- Password123" },
+        //    {"github", "Here is the github repository for this project!\n" +
+        //               "https://github.com/Phytal/GPA-Calculator" }
+        //};
     }
 }
