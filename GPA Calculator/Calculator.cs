@@ -35,7 +35,7 @@ namespace GPA_Calculator
                         }
 
                         //if there are any overlapping classes
-                        if (checkedBoxes[checkedBoxIndex].Classes.Contains(course.course) && checkedBoxes[checkedBoxIndex].Year.Equals(yearNumber))
+                        if (checkedBoxes[checkedBoxIndex].Classes.Contains(course.courseID) && checkedBoxes[checkedBoxIndex].Year.Equals(yearNumber))
                         {
                             i++;
                             continue;
@@ -60,7 +60,7 @@ namespace GPA_Calculator
                 //foreach course in that year
                 foreach (var course in courseForYear)
                 {
-                    var scale = CalculateScale(Variables.ClassScale[course.course]) / 100;
+                    var scale = CalculateScale(Variables.ClassScale[course.courseID]) / 100;
                     var courseGPA = course.courseAverage * scale;
                     totalGPA += courseGPA;
                 }

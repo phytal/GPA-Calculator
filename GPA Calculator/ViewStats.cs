@@ -28,7 +28,7 @@ namespace GPA_Calculator
 
                 foreach (var course in courseList)
                 {
-                    clb.Items.Insert(0, course.course + " - " + course.courseAverage);
+                    clb.Items.Insert(0, course.courseID + " - " + course.courseAverage);
                 }
                 Variables.AllCheckedListBoxes.Add(clb);
                 tp.Controls.Add(clb);

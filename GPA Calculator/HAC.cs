@@ -73,10 +73,10 @@ namespace GPA_Calculator
                 List<Course> assignmentList = new List<Course>();
                 foreach (var courseHtmlItem in courseHtml)
                 {
-                    var courseName = courseHtmlItem.Descendants("a")
+                    var course = courseHtmlItem.Descendants("a")
                         .Where(node => node.GetAttributeValue("class", "")
                             .Equals("sg-header-heading")).FirstOrDefault().InnerText.Trim();
-                    courseName = x.Replace(courseName, @"").Trim();
+                    var courseName = x.Replace(course, @"").Trim();
                     //removes semester 
                     while (courseName.Substring(courseName.Length - 2) == "S1" ||
                            courseName.Substring(courseName.Length - 2) == "S2")
@@ -88,12 +88,29 @@ namespace GPA_Calculator
                         }
                     }
 
-                    var courseGrade = courseHtmlItem.Descendants("span")
-                        .Where(node => node.GetAttributeValue("class", "")
-                            .Equals("sg-header-heading sg-right")).FirstOrDefault().InnerText.Trim().Remove(0, 15)
-                        .TrimEnd('%');
+                    var courseID = x.Match(course).ToString().Trim();
+                    courseID = courseID.Remove(courseID.Length - 4);
+                    //removes excess
+                    while (courseID.LastOrDefault() == ' ' || courseID.LastOrDefault() == '-' ||
+                           courseID.LastOrDefault() == 'A' || courseID.LastOrDefault() == 'B')
+                    {
+                        courseID = courseID.TrimEnd(courseID[courseID.Length - 1]);
+                    }
 
-                    assignmentList.Add(new Course {course = courseName, courseAverage = double.Parse(courseGrade)});
+                    var courseGrade = "";
+                    try
+                    {
+                        courseGrade = courseHtmlItem.Descendants("span")
+                            .Where(node => node.GetAttributeValue("class", "")
+                                .Equals("sg-header-heading sg-right")).FirstOrDefault().InnerText.Trim().Remove(0, 15)
+                            .TrimEnd('%');
+                    }
+                    catch
+                    {
+                        continue;
+                    }
+
+                    assignmentList.Add(new Course { courseName = courseName, courseID = courseID, courseAverage = Math.Round(double.Parse(courseGrade)) });
                 }
 
                 //past courses 
@@ -136,6 +153,18 @@ namespace GPA_Calculator
                             .ElementAt(1).InnerText
                             .Trim(); //course name is stored at the second instance of td
 
+                        var courseID = courseHtmlItem.Descendants("td") //gets course id
+                            .ElementAt(0).InnerText
+                            .Trim(); //course name is stored at the first instance of td
+
+                        courseID = courseID.Remove(courseID.Length - 4);
+
+                        while (courseID.LastOrDefault() == ' ' || courseID.LastOrDefault() == '-' ||
+                               courseID.LastOrDefault() == 'A' || courseID.LastOrDefault() == 'B' || courseID.LastOrDefault() == 'Y' || courseID.LastOrDefault() == 'M')
+                        {
+                            courseID = courseID.TrimEnd(courseID[courseID.Length - 1]);
+                        }
+
                         for (byte j = 4; j <= 4 && j >1; j--) 
                             //gets grade, starts from last element, which is overall avg, if nothing, goes to second semester, then first semester
                         {
@@ -151,7 +180,8 @@ namespace GPA_Calculator
                             courseGrade = courseGradeHtml;
                             oldAssignmentList.Add(new Course
                             {
-                                course = courseName,
+                                courseName = courseName,
+                                courseID = courseID,
                                 courseAverage = double.Parse(courseGrade)
                             }); //turns the grade (string) received into a double 
                         }
@@ -275,7 +305,8 @@ namespace GPA_Calculator
     }
     public class Course
     {
-        public string course { get; set; }
+        public string courseID { get; set; }
+        public string courseName { get; set; }
         public double courseAverage { get; set; }
     }
 }

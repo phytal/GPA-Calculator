@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace GPA_Calculator
@@ -31,6 +32,9 @@ namespace GPA_Calculator
                 {
                     string className = checkedListBox.CheckedItems[i].ToString();
 
+                    Regex x = new Regex(@"\w+\s-\s\d\s");
+                    className = x.Replace(className, @"").Trim();
+                    /*
                     int numericValue;
                     //gets rid of extra letters/numbers
                     do
@@ -46,7 +50,7 @@ namespace GPA_Calculator
 
                     } while (className.LastOrDefault() == '-' || className.LastOrDefault() == ' ' ||
                              numericValue == 10);
-
+                    */
                     checkedSubList.Add(className);
                     var year = clb.IndexOf(checkedListBox) + 1;
                     checkedList.Add(new CheckedBoxesInfo

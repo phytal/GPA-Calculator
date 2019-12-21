@@ -31,7 +31,7 @@ namespace GPACalculator
                 {
                     if (coursesFromReportCard.Contains(course))
                     {
-                        var existingCourseIndex = coursesFromReportCard.FindIndex(x => x.course == course.course);
+                        var existingCourseIndex = coursesFromReportCard.FindIndex(x => x.courseID == course.courseID);
                         Course existingCourse = coursesFromReportCard[existingCourseIndex];
                         double newAvg = (existingCourse.courseAverage + course.courseAverage) / 2;
                         existingCourse.courseAverage = newAvg;
@@ -48,7 +48,7 @@ namespace GPACalculator
                 {
                     if (coursesFromReportCard.Contains(course))
                     {
-                        var existingCourseIndex = coursesFromReportCard.FindIndex(x => x.course == course.course);
+                        var existingCourseIndex = coursesFromReportCard.FindIndex(x => x.courseID == course.courseID);
                         Course existingCourse = coursesFromReportCard[existingCourseIndex];
                         double newAvg = (existingCourse.courseAverage + course.courseAverage) / 2;
                         existingCourse.courseAverage = newAvg;
@@ -80,6 +80,9 @@ namespace GPACalculator
                     .Where(node => node.GetAttributeValue("href", "")
                         .Equals($"#")).FirstOrDefault().InnerText.Trim();
 
+                var courseID = reportCardCourse.Descendants("td") //gets course id
+                    .FirstOrDefault().InnerText.Trim();
+
                 var courseGrade = ""; //finalized course grade
                 var courseGradeHtml = reportCardCourse.Descendants("a") //gets course grade
                     .Where(node => node.GetAttributeValue("onclick", "")
@@ -100,10 +103,20 @@ namespace GPACalculator
                     }
                 }
 
+                courseID = courseID.Remove(courseID.Length - 4);
+
+                //removes excess
+                while (courseID.LastOrDefault() == ' ' || courseID.LastOrDefault() == '-' ||
+                       courseID.LastOrDefault() == 'A' || courseID.LastOrDefault() == 'B')
+                {
+                    courseID = courseID.TrimEnd(courseID[courseID.Length - 1]);
+                }
+
                 courseGrade = courseGradeHtml;
                 reportCardAssignmentList.Add(new Course
                 {
-                    course = courseName,
+                    courseID = courseID,
+                    courseName = courseName,
                     courseAverage = double.Parse(courseGrade)
                 }); //turns the grade (string) received into a double 
             }
