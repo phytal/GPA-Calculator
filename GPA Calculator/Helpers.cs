@@ -32,7 +32,7 @@ namespace GPA_Calculator
                 {
                     string className = checkedListBox.CheckedItems[i].ToString();
 
-                    Regex x = new Regex(@"\w+\s-\s\d\s");
+                    Regex x = new Regex(@"\s-\s\d+");
                     className = x.Replace(className, @"").Trim();
                     /*
                     int numericValue;

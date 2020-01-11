@@ -13,34 +13,6 @@ namespace GPACalculator
             List<Course> coursesFromReportCard = new List<Course>();
             DateTime now = DateTime.Now;
 
-
-            if (now > Variables.ReportingPeriod1)
-            {
-                List<Course> reportingPeriod1Courses = ReportCardScraping(reportCardDocument, 1);
-                foreach (Course course in reportingPeriod1Courses)
-                {
-                    coursesFromReportCard.Add(course);
-                }
-                
-            }
-
-            if (now > Variables.ReportingPeriod2)
-            {
-                List<Course> reportingPeriod2Courses = ReportCardScraping(reportCardDocument, 2);
-                foreach (Course course in reportingPeriod2Courses)
-                {
-                    if (coursesFromReportCard.Contains(course))
-                    {
-                        var existingCourseIndex = coursesFromReportCard.FindIndex(x => x.courseID == course.courseID);
-                        Course existingCourse = coursesFromReportCard[existingCourseIndex];
-                        double newAvg = (existingCourse.courseAverage + course.courseAverage) / 2;
-                        existingCourse.courseAverage = newAvg;
-                    }
-                    coursesFromReportCard.Add(course);
-                }
-                
-            }
-
             if (now > Variables.ReportingPeriod3)
             {
                 List<Course> reportingPeriod3Courses = ReportCardScraping(reportCardDocument, 3);
@@ -55,8 +27,31 @@ namespace GPACalculator
                     }
                     coursesFromReportCard.Add(course);
                 }
-                
+            }
 
+            else if (now > Variables.ReportingPeriod2)
+            {
+                List<Course> reportingPeriod2Courses = ReportCardScraping(reportCardDocument, 2);
+                foreach (Course course in reportingPeriod2Courses)
+                {
+                    if (coursesFromReportCard.Contains(course))
+                    {
+                        var existingCourseIndex = coursesFromReportCard.FindIndex(x => x.courseID == course.courseID);
+                        Course existingCourse = coursesFromReportCard[existingCourseIndex];
+                        double newAvg = (existingCourse.courseAverage + course.courseAverage) / 2;
+                        existingCourse.courseAverage = newAvg;
+                    }
+                    coursesFromReportCard.Add(course);
+                }
+            }
+
+            else if (now > Variables.ReportingPeriod1)
+            {
+                List<Course> reportingPeriod1Courses = ReportCardScraping(reportCardDocument, 1);
+                foreach (Course course in reportingPeriod1Courses)
+                {
+                    coursesFromReportCard.Add(course);
+                }
             }
 
             return coursesFromReportCard;
@@ -84,11 +79,31 @@ namespace GPACalculator
                     .FirstOrDefault().InnerText.Trim();
 
                 var courseGrade = ""; //finalized course grade
-                var courseGradeHtml = reportCardCourse.Descendants("a") //gets course grade
-                    .Where(node => node.GetAttributeValue("onclick", "")
-                        .Contains($"OpenAssingmentsFromRC")).FirstOrDefault().InnerText.Trim();
+                int[] elementNumber = new int[] { };
+                switch (markingPeriod)
+                {
+                    case 1:
+                        elementNumber = new int[] { 2 };
+                        break;
+                    case 2:
+                        elementNumber = new int[] { 4 };
+                        break;
+                    case 3:
+                        elementNumber = new int[] { 5 };
+                        break;
+                    case 4:
+                        elementNumber = new int[] { 7 };
+                        break;
+                }
+                List<string> grades = new List<string>();
+                foreach (var element in elementNumber)
+                {
+                    grades.Add(reportCardCourse.Descendants("a") //gets course grade
+                        .ElementAt(element).InnerText.Trim());
+                }
+                if (grades.Contains("P")) continue; //ex: sub marching band
 
-                if (courseGradeHtml == "")
+                if (grades.Count != elementNumber.Length || grades[0] == "")
                 {
                     continue; //if it is not a grade and is empty then retry
                 }
@@ -112,7 +127,11 @@ namespace GPACalculator
                     courseID = courseID.TrimEnd(courseID[courseID.Length - 1]);
                 }
 
-                courseGrade = courseGradeHtml;
+                var avg = 0;
+                foreach (var grade in grades) 
+                    avg += int.Parse(grade.Trim());
+                avg /= grades.Count;
+                courseGrade = avg.ToString();
                 reportCardAssignmentList.Add(new Course
                 {
                     courseID = courseID,

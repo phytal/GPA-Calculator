@@ -42,7 +42,7 @@ namespace GPA_Calculator
         {
             List<CheckedListBox> checkedListBoxesList = new List<CheckedListBox>();
             //sets to default every time button is clicked
-            Calculator.uncheckedCourses = new List<List<Course>>();
+            Calculator.checkedCourses = new List<List<Course>>();
             for (byte i = 1; i <= Variables.NumberOfYears; i++)
             {
                 //goes to tab control and finds the tab
